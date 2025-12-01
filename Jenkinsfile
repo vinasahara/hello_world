@@ -2,28 +2,20 @@ pipeline {
     agent any
     stages {
         stage('Checkout') {
-            steps {
-                checkout scm
-            }
+            steps { checkout scm }
         }
         stage('Run PHP') {
-            steps {
-                powershell 'php index.php'
-            }
+            steps { powershell 'php index.php' }
+        }
+        stage('Install Dependencies') {
+            steps { powershell 'composer install' }
         }
         stage('Unit Test') {
-            steps {
-                // Jalankan PHPUnit versi Composer di Windows
-                powershell 'php vendor\\bin\\phpunit tests'
-            }
+            steps { powershell 'php vendor\\bin\\phpunit tests' }
         }
     }
     post {
-        success {
-            echo 'Pipeline sukses dijalankan!'
-        }
-        failure {
-            echo 'Pipeline gagal!'
-        }
+        success { echo 'Pipeline sukses dijalankan!' }
+        failure { echo 'Pipeline gagal!' }
     }
 }
