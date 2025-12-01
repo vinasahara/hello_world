@@ -13,7 +13,8 @@ pipeline {
         }
         stage('Unit Test') {
             steps {
-                powershell 'vendor\\bin\\phpunit test'
+                // Jalankan PHPUnit versi Composer di Windows
+                powershell 'php vendor\\bin\\phpunit tests'
             }
         }
     }
